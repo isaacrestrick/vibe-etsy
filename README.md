@@ -89,10 +89,7 @@ bun run db:push
 bun run db:seed
 ```
 
-This creates:
-- Admin user: username `admin`, password `admin123`
-- Customer user: username `customer`, password `customer123`
-- Sample products for the marketplace
+This creates sample products for the marketplace.
 
 ### Development
 
