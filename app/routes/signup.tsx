@@ -79,28 +79,28 @@ export default function Signup() {
   const actionData = useActionData<typeof action>();
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-stone-950 via-emerald-950 to-amber-900 py-16 px-4 sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-16 right-12 h-64 w-64 rounded-full bg-purple-500/35 blur-3xl" />
-        <div className="absolute top-1/2 left-4 h-72 w-72 -translate-y-1/2 rounded-full bg-fuchsia-500/30 blur-3xl" />
-        <div className="absolute bottom-[-12%] right-1/4 h-60 w-60 rounded-full bg-indigo-500/30 blur-3xl" />
+        <div className="absolute -top-16 right-12 h-64 w-64 rounded-full bg-emerald-500/25 blur-3xl" />
+        <div className="absolute top-1/2 left-4 h-72 w-72 -translate-y-1/2 rounded-full bg-amber-500/25 blur-3xl" />
+        <div className="absolute bottom-[-12%] right-1/4 h-60 w-60 rounded-full bg-lime-500/20 blur-3xl" />
       </div>
       <div className="relative w-full max-w-md">
         {/* Logo and Title */}
         <div className="mb-10 text-center">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-orange-400 text-4xl shadow-[0_20px_60px_-30px_rgba(236,72,153,0.75)]">
-            ✨
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-amber-400 text-4xl shadow-[0_20px_60px_-30px_rgba(8,47,73,0.75)]">
+            🐗
           </div>
           <h2 className="mt-6 text-4xl font-semibold text-white">
-            Join the Marketplace
+            Swear the BoarDash Courier Oath
           </h2>
           <p className="mt-2 text-sm text-white/70">
-            Create your account and start shopping
+            Register with the guild to take contracts and deliver feasts across the kingdoms.
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(76,29,149,0.65)] backdrop-blur-xl">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(8,47,73,0.65)] backdrop-blur-xl">
           <Form method="post" className="space-y-6">
             <div>
               <label
@@ -146,16 +146,16 @@ export default function Signup() {
 
             <button
               type="submit"
-              className="w-full rounded-2xl bg-gradient-to-r from-purple-500 via-fuchsia-500 to-orange-400 py-3.5 text-sm font-semibold text-white shadow-[0_25px_70px_-35px_rgba(244,114,182,0.75)] transition hover:shadow-[0_30px_80px_-40px_rgba(249,115,22,0.65)]"
+              className="w-full rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-400 py-3.5 text-sm font-semibold text-white shadow-[0_25px_70px_-35px_rgba(8,47,73,0.65)] transition hover:shadow-[0_30px_80px_-40px_rgba(245,158,11,0.65)]"
             >
-              Create Account 🎉
+              Swear the oath ⚔️
             </button>
           </Form>
 
           <div className="mt-6 text-center text-sm text-white/70">
             <span>Already have an account? </span>
-            <a href="/login" className="font-semibold text-fuchsia-300 transition hover:text-orange-200">
-              Log in →
+            <a href="/login" className="font-semibold text-amber-200 transition hover:text-lime-200">
+              Return to the hall →
             </a>
           </div>
         </div>
@@ -163,12 +163,12 @@ export default function Signup() {
         {/* Benefits */}
         <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-xs text-white/70 backdrop-blur">
           <p className="mb-2 text-center font-semibold text-white">
-            Why join us?
+            Guild perks
           </p>
           <div className="flex justify-center gap-4 text-white/80">
-            <span>✨ Unique Items</span>
-            <span>🎁 Instant Access</span>
-            <span>💜 Easy Shopping</span>
+            <span>🐴 Stable of swift steeds</span>
+            <span>🛡️ Protective ward sigils</span>
+            <span>🍗 First claim on royal leftovers</span>
           </div>
         </div>
       </div>

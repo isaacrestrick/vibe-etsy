@@ -85,31 +85,31 @@ export default function Admin() {
   const totalInventoryValue = productList.reduce((acc, product) => acc + Number(product.price ?? 0), 0);
   const stats = [
     {
-      label: 'Live Listings',
+      label: 'Active Orders',
       value: productList.length,
-      icon: '🛒',
-      caption: 'Handpicked & published',
+      icon: '📜',
+      caption: 'Scrolls on the dispatch board',
     },
     {
-      label: 'Inventory Value',
+      label: 'Cellar Ledger',
       value: `$${totalInventoryValue.toFixed(2)}`,
-      icon: '💎',
-      caption: 'Estimated retail',
+      icon: '💰',
+      caption: 'Feasts awaiting payment',
     },
     {
-      label: 'Studio Access',
+      label: 'Guildmaster',
       value: user.username,
-      icon: '🧑‍🎨',
-      caption: 'Lead curator',
+      icon: '⚔️',
+      caption: 'Keeper of the roster',
     },
   ] as const;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-white">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-stone-950 via-emerald-950 to-amber-900 text-white">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-24 left-10 h-80 w-80 rounded-full bg-purple-500/40 blur-3xl" />
-        <div className="absolute top-1/2 right-0 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-indigo-500/35 blur-3xl" />
-        <div className="absolute bottom-[-10%] left-1/3 h-72 w-72 rounded-full bg-fuchsia-500/35 blur-3xl" />
+        <div className="absolute -top-24 left-10 h-80 w-80 rounded-full bg-emerald-500/30 blur-3xl" />
+        <div className="absolute top-1/2 right-0 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-amber-500/25 blur-3xl" />
+        <div className="absolute bottom-[-10%] left-1/3 h-72 w-72 rounded-full bg-lime-500/20 blur-3xl" />
       </div>
 
       {/* Header */}
@@ -117,10 +117,10 @@ export default function Admin() {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
-              Studio Control Room
+              Guild Command Post
             </p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white">
-              Marketplace Admin
+              BoarDash Dispatch Hall
             </h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -128,8 +128,8 @@ export default function Admin() {
               to="/products"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/10 hover:text-white"
             >
-              <span className="text-lg">🛍️</span>
-              View Storefront
+              <span className="text-lg">🐗</span>
+              View Orders
             </Link>
             <Form method="post">
               <input type="hidden" name="intent" value="logout" />
@@ -151,7 +151,7 @@ export default function Admin() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_80px_-45px_rgba(37,99,235,0.45)]"
+              className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_80px_-45px_rgba(8,47,73,0.6)]"
             >
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
               <div className="text-3xl">{stat.icon}</div>
@@ -166,18 +166,18 @@ export default function Admin() {
 
         <div className="mt-12 grid grid-cols-1 gap-8 xl:grid-cols-[1.15fr_0.85fr]">
           {/* Add Product Form */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(123,31,162,0.55)]">
-            <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-purple-500/30 blur-3xl" />
-            <div className="absolute bottom-0 right-0 h-36 w-36 rounded-full bg-indigo-500/30 blur-2xl" />
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(8,47,73,0.6)]">
+            <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-emerald-500/25 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-36 w-36 rounded-full bg-amber-500/25 blur-2xl" />
             <div className="relative">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white/80">
-                🎨 Add a new story
+                🐗 Forge a new order
               </div>
               <h2 className="mt-6 text-2xl font-semibold text-white">
-                Drop a Fresh Listing
+                Post a Royal Banquet
               </h2>
               <p className="mt-2 text-sm text-white/70">
-                Spotlight artisan work with a memorable title and price.
+                Record a new meal for riders to ferry across the realm.
               </p>
               <Form method="post" className="mt-8 space-y-6">
                 <input type="hidden" name="intent" value="add-product" />
@@ -195,7 +195,7 @@ export default function Admin() {
                     type="text"
                     required
                     className="mt-2 block w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/40"
-                    placeholder="e.g., Aurora Bloom Vase"
+                    placeholder="e.g., Emberbraised Boar Haunch"
                   />
                 </div>
 
@@ -214,7 +214,7 @@ export default function Admin() {
                     min="0"
                     required
                     className="mt-2 block w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/40"
-                    placeholder="e.g., 128.00"
+                    placeholder="e.g., 42.00"
                   />
                 </div>
 
@@ -232,25 +232,25 @@ export default function Admin() {
 
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-500 via-fuchsia-500 to-orange-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_25px_70px_-35px_rgba(123,31,162,0.65)] transition hover:shadow-[0_30px_80px_-40px_rgba(255,99,71,0.65)]"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_25px_70px_-35px_rgba(8,47,73,0.65)] transition hover:shadow-[0_30px_80px_-40px_rgba(245,158,11,0.65)]"
                 >
-                  <span className="text-lg">➕</span>
-                  Publish listing
+                  <span className="text-lg">🕯️</span>
+                  Post to dispatch board
                 </button>
               </Form>
             </div>
           </div>
 
           {/* Product List */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(99,102,241,0.45)]">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(8,47,73,0.55)]">
             <div className="absolute inset-x-6 top-6 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-white/50">
-              <span>Inventory</span>
-              <span>{productList.length} items</span>
+              <span>Dispatch ledger</span>
+              <span>{productList.length} entries</span>
             </div>
             <div className="mt-12 space-y-6">
               {productList.length === 0 ? (
                 <p className="rounded-2xl border border-dashed border-white/20 bg-white/5 px-4 py-6 text-center text-sm text-white/60">
-                  Your shelves are clear. Add a product to launch the first collection.
+                  The board is bare. Post a banquet and summon the riders.
                 </p>
               ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -263,11 +263,11 @@ export default function Admin() {
                       <p className="text-sm font-semibold text-white">
                         {product.name}
                       </p>
-                      <p className="mt-2 text-lg font-semibold text-transparent bg-gradient-to-r from-purple-300 via-fuchsia-200 to-orange-200 bg-clip-text">
+                      <p className="mt-2 text-lg font-semibold text-transparent bg-gradient-to-r from-amber-300 via-amber-200 to-emerald-200 bg-clip-text">
                         ${product.price}
                       </p>
                       <p className="mt-3 text-xs uppercase tracking-[0.3em] text-white/40">
-                        Item #{product.productId}
+                        Order #{product.productId}
                       </p>
                     </div>
                   ))}
