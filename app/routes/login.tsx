@@ -1,10 +1,11 @@
-import { Form, redirect, useActionData } from 'react-router';
+import { Form, redirect, useActionData, useLoaderData } from 'react-router';
 import type { Route } from './+types/login';
 import { db } from '~/db/db';
 import { users } from '~/db/schema';
 import { comparePassword, generateToken, createAuthCookie } from '~/lib/auth';
 import { getAuthenticatedUser } from '~/lib/auth.server';
 import { eq } from 'drizzle-orm';
+import { getDemoAccounts } from '~/lib/env.server';
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Redirect to products if already logged in
@@ -12,7 +13,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   if (user) {
     throw redirect('/products');
   }
-  return null;
+  return { demoAccounts: getDemoAccounts() };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -66,23 +67,34 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function Login() {
   const actionData = useActionData<typeof action>();
+  const { demoAccounts } = useLoaderData<typeof loader>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Sign in to your account
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-10 left-6 h-64 w-64 rounded-full bg-purple-500/30 blur-3xl" />
+        <div className="absolute top-1/2 right-0 h-72 w-72 -translate-y-1/2 rounded-full bg-fuchsia-500/30 blur-3xl" />
+        <div className="absolute bottom-[-10%] left-1/3 h-64 w-64 rounded-full bg-indigo-500/25 blur-3xl" />
+      </div>
+      <div className="relative w-full max-w-md">
+        {/* Logo and Title */}
+        <div className="mb-10 text-center">
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-orange-400 text-4xl shadow-[0_20px_60px_-30px_rgba(236,72,153,0.75)]">
+            🛍️
+          </div>
+          <h2 className="mt-6 text-4xl font-semibold text-white">Welcome Back</h2>
+          <p className="mt-2 text-sm text-white/70">
+            Sign in to continue shopping
           </p>
         </div>
 
-        <Form method="post" className="mt-8 space-y-6">
-          <div className="space-y-4">
+        {/* Form Card */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_80px_-45px_rgba(76,29,149,0.65)] backdrop-blur-xl">
+          <Form method="post" className="space-y-6">
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
+                className="mb-2 block text-xs font-semibold uppercase tracking-[0.3em] text-white/60"
               >
                 Username
               </label>
@@ -91,15 +103,15 @@ export default function Login() {
                 name="username"
                 type="text"
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Enter username"
+                className="block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/40"
+                placeholder="Enter your username"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="mb-2 block text-xs font-semibold uppercase tracking-[0.3em] text-white/60"
               >
                 Password
               </label>
@@ -108,34 +120,58 @@ export default function Login() {
                 name="password"
                 type="password"
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Enter password"
+                className="block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/40"
+                placeholder="Enter your password"
               />
             </div>
-          </div>
 
-          {actionData?.error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-800">{actionData.error}</p>
-            </div>
-          )}
+            {actionData?.error && (
+              <div className="rounded-2xl border border-red-300/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                ❌ {actionData.error}
+              </div>
+            )}
 
-          <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full rounded-2xl bg-gradient-to-r from-purple-500 via-fuchsia-500 to-orange-400 py-3.5 text-sm font-semibold text-white shadow-[0_25px_70px_-35px_rgba(244,114,182,0.75)] transition hover:shadow-[0_30px_80px_-40px_rgba(249,115,22,0.65)]"
             >
-              Sign In
+              Sign In ✨
             </button>
-          </div>
+          </Form>
 
-          <div className="text-center text-sm">
-            <span className="text-gray-600">Don't have an account? </span>
-            <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Sign up
+          <div className="mt-6 text-center text-sm text-white/70">
+            <span>Don't have an account? </span>
+            <a href="/signup" className="font-semibold text-fuchsia-300 transition hover:text-orange-200">
+              Sign up →
             </a>
           </div>
-        </Form>
+        </div>
+
+        {/* Demo Credentials */}
+        <div className="mt-6 text-center">
+          <div className="inline-block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/70 backdrop-blur">
+            <p className="mb-1 font-semibold text-white">Demo Accounts:</p>
+            {demoAccounts.admin ? (
+              <p>
+                🔑 {demoAccounts.admin.username} / {demoAccounts.admin.password} (Admin)
+              </p>
+            ) : (
+              <p className="text-white/50">
+                Set <code className="font-mono">DEMO_ADMIN_USERNAME</code> & <code className="font-mono">DEMO_ADMIN_PASSWORD</code> in your
+                <code className="font-mono">.env</code> to surface the admin login here.
+              </p>
+            )}
+            {demoAccounts.customer ? (
+              <p>
+                🛒 {demoAccounts.customer.username} / {demoAccounts.customer.password} (Customer)
+              </p>
+            ) : (
+              <p className="mt-1 text-white/50">
+                Add <code className="font-mono">DEMO_CUSTOMER_USERNAME</code> & <code className="font-mono">DEMO_CUSTOMER_PASSWORD</code> to share a customer login.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
